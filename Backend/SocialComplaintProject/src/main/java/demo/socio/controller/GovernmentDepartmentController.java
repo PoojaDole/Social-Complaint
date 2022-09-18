@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import demo.socio.entity.GovernmentDepartmentEntity;
 import demo.socio.repository.GovernmentDepartmentRepository;
 import demo.socio.result.ResultDO;
-@CrossOrigin
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/govdept")
 public class GovernmentDepartmentController {
@@ -25,14 +25,14 @@ public class GovernmentDepartmentController {
 	@Autowired
 	private GovernmentDepartmentRepository repo;
 	
-	@PostMapping("/insert")
+	@PostMapping("/insert{governmment_department_name}")
 	public String insertGovDept(@PathVariable GovernmentDepartmentEntity governmment_department_name ) {
 		
 		repo.save(governmment_department_name);
 		return "Insert Done";
 	}
 	
-	@GetMapping("/getid")
+	@GetMapping("/getid{governmment_department_id}")
 	public List<Integer>findByIdDepartment(@PathVariable long  governmment_department_id)
 	{
 		List<GovernmentDepartmentEntity>list=repo.findAll();
@@ -52,20 +52,36 @@ public class GovernmentDepartmentController {
 	
 	}
 	
-	@DeleteMapping("/deletebyid")
+	@DeleteMapping("/deletebyid//{governmment_department_id}")
 	public ResultDO deleteDepartment(@PathVariable long id)
 	{
-		repo.deleteById(id);
-		return new ResultDO("Delete Successfully");
+		try
+		{
+			repo.deleteById(governmment_department_id);
+			return new ResultDO("Delete Successfully");
+		}
+		catch(Exception e)
+		{
+			return new ResultDO("Governmment department id is invalid");
+
+		}
 	}
-	
-	@PutMapping("/changedeptname")
+
+	@PutMapping("/changedeptname/{governmment_department_id}/{governmment_department_name}")
 	public ResultDO updateName(@PathVariable long governmment_department_id,@PathVariable String  governmment_department_name )
 	{
 		Optional<GovernmentDepartmentEntity> gov=repo.findById(governmment_department_id);
-	GovernmentDepartmentEntity dept=	gov.get();
-	dept.setGovernmment_department_name( governmment_department_name);
-		return new ResultDO("update");
+		try {
+			GovernmentDepartmentEntity dept=	gov.get();
+			dept.setGovernmment_department_name( governmment_department_name);
+			return new ResultDO("update");
+		}
+		catch(Exception e)
+		{
+			return new ResultDO("Governmment department id not found");
+		}
+	
+		
 	}
 	
 	
