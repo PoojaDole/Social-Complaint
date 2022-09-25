@@ -1,6 +1,5 @@
 package demo.socio.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -10,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 //import javax.validation.constraints.NotBlank;
 
@@ -27,57 +27,73 @@ public class ImageEntity {
 	@Lob
 	private byte[] image;
 	
-
-//	@Enumerated(EnumType.STRING)
 	private String image_type;
 	
 	@ManyToOne
-	@Column(columnDefinition = "FOREIGN KEY (complaint_id) REFERENCES (id)")
 	@JoinColumn(name = "complaint_id")
-	private long complaint_id;
-
+	private ComplaintInformationEntity complaintInformationEntity;
+	
+	
 	public ImageEntity() {
 		super();
 	}
 
-	public ImageEntity(byte[] image, String image_type, long complaint_id) {
+	public ImageEntity(long image_id, byte[] image, String image_type,
+			ComplaintInformationEntity complaintInformationEntity) {
+		super();
+		this.image_id = image_id;
+		this.image = image;
+		this.image_type = image_type;
+		this.complaintInformationEntity = complaintInformationEntity;
+	}
+
+	public ImageEntity(byte[] image, String image_type, ComplaintInformationEntity complaintInformationEntity) {
 		super();
 		this.image = image;
 		this.image_type = image_type;
-		this.complaint_id = complaint_id;
+		this.complaintInformationEntity = complaintInformationEntity;
 	}
+
 
 	public long getImage_id() {
 		return image_id;
 	}
 
+
 	public void setImage_id(long image_id) {
 		this.image_id = image_id;
 	}
+
 
 	public byte[] getImage() {
 		return image;
 	}
 
+
 	public void setImage(byte[] image) {
 		this.image = image;
 	}
+
 
 	public String getImage_type() {
 		return image_type;
 	}
 
+
 	public void setImage_type(String image_type) {
 		this.image_type = image_type;
 	}
 
-	public long getComplaint_id() {
-		return complaint_id;
+
+	public ComplaintInformationEntity getComplaintInformationEntity() {
+		return complaintInformationEntity;
 	}
 
-	public void setComplaint_id(long complaint_id) {
-		this.complaint_id = complaint_id;
+
+	public void setComplaintInformationEntity(ComplaintInformationEntity complaintInformationEntity) {
+		this.complaintInformationEntity = complaintInformationEntity;
 	}
+
 
 	
 	
