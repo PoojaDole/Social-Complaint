@@ -52,7 +52,7 @@ public class AdminController {
 			admin = new Admin(admin_username, admin_password, myFile.getBytes() );
 			repo.save(admin); 
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}
 		return new ResultDO("OK");
