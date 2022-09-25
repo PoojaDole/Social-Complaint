@@ -8,4 +8,8 @@ import demo.socio.entity.Admin;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Integer> {
 
+	public Admin findByAdminusername(String username);
+
+
+
 }
