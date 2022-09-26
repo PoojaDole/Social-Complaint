@@ -1,6 +1,5 @@
 package demo.socio.entity;
 
-import java.awt.Image;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,9 +18,10 @@ public class Admin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int admin_id;
 
-	private String admin_username;
+	@Column(name = "admin_username")
+	private String adminusername;
 
-	@Column(columnDefinition = "VARBINARY(100) NOT NULL")
+//	@Column(columnDefinition = "VARBINARY(100) NOT NULL")
 	private String admin_password;
 
 	@Lob
@@ -36,7 +36,7 @@ public class Admin {
 	public Admin(int admin_id, String admin_username, String admin_password, byte[] admin_profile_image) {
 		super();
 		this.admin_id = admin_id;
-		this.admin_username = admin_username;
+		this.adminusername = admin_username;
 		this.admin_password = admin_password;
 		this.admin_profile_image = admin_profile_image;
 	}
@@ -44,7 +44,7 @@ public class Admin {
 
 	public Admin(String admin_username, String admin_password, byte[] admin_profile_image) {
 		super();
-		this.admin_username = admin_username;
+		this.adminusername = admin_username;
 		this.admin_password = admin_password;
 		this.admin_profile_image = admin_profile_image;
 	}
@@ -60,11 +60,11 @@ public class Admin {
 	}
 
 	public String getAdmin_username() {
-		return admin_username;
+		return adminusername;
 	}
 
 	public void setAdmin_username(String admin_username) {
-		this.admin_username = admin_username;
+		this.adminusername = admin_username;
 	}
 
 	public String getAdmin_password() {
